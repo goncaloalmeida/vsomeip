@@ -14,6 +14,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Cache Docker layers
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/.docker
+        key: ${{ runner.os }}-docker-${{ hashFiles('Dockerfile') }}
+        restore-keys: |
+          ${{ runner.os }}-docker-
+
     - name: Build
       run: |
           docker pull navsyslab/qnx:v1.1
@@ -27,3 +35,7 @@ jobs:
           export \
               MAKEFLAGS=-I$QNX_TARGET/usr/include \
               PATH=$PATH:$QNX_HOST/usr/bin:/etc/qnx/bin
+
+          cd build_qnx
+
+          make clean && make
