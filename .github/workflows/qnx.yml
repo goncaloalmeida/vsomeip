@@ -39,9 +39,7 @@ jobs:
           cd build_qnx
 
     - name: List files before build
-      run: |
-          cd build_qnx
-          ls -la build_qnx
+      run: ls -la build_qnx
   
     - name: Build project
       run: |
@@ -49,6 +47,4 @@ jobs:
           make && make -B
 
     - name: List files after build
-      run: |
-          cd build_qnx
-          ls -la build_qnx
+      run: ls -la build_qnx
