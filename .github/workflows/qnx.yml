@@ -38,5 +38,5 @@ jobs:
           
           ls -la build_qnx
           cd build_qnx
-          make clean && make -B
+          make clean && make -B && make install
           ls -la
