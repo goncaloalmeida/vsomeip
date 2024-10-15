@@ -35,16 +35,8 @@ jobs:
           export \
               MAKEFLAGS=-I$QNX_TARGET/usr/include \
               PATH=$PATH:$QNX_HOST/usr/bin:/etc/qnx/bin
-
-          cd build_qnx
-
-    - name: List files before build
-      run: ls -la build_qnx
-  
-    - name: Build project
-      run: |
+          
+          ls -la build_qnx
           cd build_qnx
           make && make -B
-
-    - name: List files after build
-      run: ls -la build_qnx
+          ls -la build_qnx
