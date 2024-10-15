@@ -42,7 +42,7 @@ jobs:
       run: ls -la build_qnx
   
     - name: Build project
-      run: make clean && make -B
+      run: make && make -B
 
     - name: List files after build
       run: ls -la build_qnx
