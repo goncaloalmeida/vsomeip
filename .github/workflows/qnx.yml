@@ -1,0 +1,23 @@
+name: Build for QNX
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      run: |
+        docker pull frida/qnx-tools:latest
+
+    - name: Build project
+      run: |
+        docker run --rm -v $(pwd):/workspace -w /workspace frida/qnx-tools:latest /bin/bash -c "qcc -Vgcc_ntoarmv7_g++ my_source.cpp -o my_program"
