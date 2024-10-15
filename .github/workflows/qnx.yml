@@ -38,4 +38,4 @@ jobs:
 
           cd build_qnx
 
-          make clean && make
+          make clean && make -B
