@@ -39,4 +39,4 @@ jobs:
           ls -la build_qnx
           cd build_qnx
           make clean && make -B
-          build_qnx
+          ls -la
