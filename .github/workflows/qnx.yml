@@ -14,10 +14,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Docker
+    - name: Build
       run: |
-        docker pull frida/qnx-tools:latest
-
-    - name: Build project
-      run: |
-        docker run --rm -v $(pwd):/workspace -w /workspace frida/qnx-tools:latest /bin/bash -c "qcc -Vgcc_ntoarmv7_g++ my_source.cpp -o my_program"
+          docker pull navsyslab/qnx:v1.1
+          container_id=$(docker create navsyslab/qnx:v1.1)
+          sudo docker cp $container_id:/opt/qnx650 /opt/qnx650
+          sudo docker cp $container_id:/etc/qnx /etc/qnx
+          sudo chown -R $USER:$USER /etc/qnx
+          export \
+              QNX_HOST=/opt/qnx650/host/linux/x86 \
+              QNX_TARGET=/opt/qnx650/target/qnx6
+          export \
+              MAKEFLAGS=-I$QNX_TARGET/usr/include \
+              PATH=$PATH:$QNX_HOST/usr/bin:/etc/qnx/bin
