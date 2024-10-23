@@ -31,4 +31,4 @@ jobs:
       run: cmake -Bbuild -D BOOST_ROOT=C:\runner\boost/boost\ .
 
     - name: Build CMake 
-      run: cmake --build build
+      run: cmake --build build --target examples
