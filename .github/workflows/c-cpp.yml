@@ -27,7 +27,7 @@ jobs:
       run: ./vcpkg install gtest
 
     - name: Run CMake
-      run: cmake -Bbuild -D BOOST_ROOT=C:\runner\boost/boost\ -DGTEST_ROOT=/usr/src/googletest/googletest/ .
+      run: cmake -Bbuild -D BOOST_ROOT=C:\runner\boost/boost\ .
 
     - name: Build CMake 
       run: cmake --build build -t all build_tests
