@@ -22,8 +22,6 @@ jobs:
           cache: true
   
     - uses: actions/checkout@v3
-
-    - name: Install Google Test with vcpkg
     - uses: ilammy/msvc-dev-cmd@v1
     - uses: Bacondish2023/setup-googletest@v1
       with:
