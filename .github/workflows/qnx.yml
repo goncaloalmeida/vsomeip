@@ -1,0 +1,61 @@
+name: QNX CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout vsomeip repository
+        uses: actions/checkout@v4
+        with:
+          path: vsomeip
+
+      - name: Checkout build-files
+        uses: actions/checkout@v4
+        with:
+          repository: qnx-ports/build-files
+          path: build-files
+          cache: true
+
+      - name: Checkout boost
+        uses: actions/checkout@v4
+        with:
+          repository: boostorg/boost
+          path: boost
+          ref: boost-1.78.0
+          submodules: recursive
+          cache: true
+  
+      - name: Checkout googletest
+        uses: actions/checkout@v4
+        with:
+          repository: qnx-ports/googletest
+          path: googletest
+          ref: qnx_v1.13.0
+          cache: true
+
+      - name: Build docker
+        run: |
+          ls -l
+          cd build-files/docker
+          ls -l
+          ls -l /home/runner/
+          ls -l /home/
+          ./docker-build-qnx-image.sh
+
+      - name: Build vsomeip
+        uses: addnab/docker-run-action@v3
+        with:
+          image: qnx800:latest
+          options: -v ${{ github.workspace }}:/home/runner/workspace -e MAKEFLAGS=${{ env.MAKEFLAGS }}
+          shell: bash
+          run: |
+            ls -l /
+            ls -l ~
+            ls -l ~/qnx
+            source ~/qnx/800/qnxsdp-env.sh
