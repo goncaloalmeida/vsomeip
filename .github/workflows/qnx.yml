@@ -40,11 +40,9 @@ jobs:
           cache: true
 
       - name: Build docker
-        with:
-          shell: bash
-          run: |
-            cd build-files/docker
-            ./build-files/docker-build-qnx-image.sh
+        run: |
+          cd build-files/docker
+          ./build-files/docker-build-qnx-image.sh
 
       - name: Build vsomeip
         uses: addnab/docker-run-action@v3
