@@ -41,7 +41,9 @@ jobs:
 
       - name: Build docker
         run: |
+          ls -l
           cd build-files/docker
+          ls -l
           ./build-files/docker-build-qnx-image.sh
 
       - name: Build vsomeip
