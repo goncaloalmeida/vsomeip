@@ -44,7 +44,7 @@ jobs:
           ls -l
           cd build-files/docker
           ls -l
-          ./build-files/docker-build-qnx-image.sh
+          ./docker-build-qnx-image.sh
 
       - name: Build vsomeip
         uses: addnab/docker-run-action@v3
