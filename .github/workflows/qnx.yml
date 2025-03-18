@@ -39,10 +39,17 @@ jobs:
           ref: qnx_v1.13.0
           cache: true
 
+      - name: Build docker
+        with:
+          shell: bash
+          run: |
+            cd build-files/docker
+            ./build-files/docker-build-qnx-image.sh
+
       - name: Build vsomeip
         uses: addnab/docker-run-action@v3
         with:
-          image: ghcr.io/qnx-ports/sdp800-build-env:latest
+          image: qnx800:latest
           options: -v ${{ github.workspace }}:/home/runner/workspace -e MAKEFLAGS=${{ env.MAKEFLAGS }}
           shell: bash
           run: |
