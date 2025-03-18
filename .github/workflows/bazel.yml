@@ -1,0 +1,26 @@
+name: Build vsomeip with Bazel
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Bazel environment
+      uses: bazel-contrib/setup-bazel@v0.8.1
+      with:
+        bazelisk-cache: true
+        disk-cache: ${{ github.workflow }}
+        repository-cache: true
+
+    - name: Build vsomeip
+      run: |
+        bazel build //vsomeip:all
